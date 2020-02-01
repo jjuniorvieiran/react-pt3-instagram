@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FotoItem from './Foto';
 import Pubsub from 'pubsub-js';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+import LogicaTimeline from '../logicas/LogicaTimeline' 
 
 export default class Timeline extends Component {
 
@@ -9,6 +10,7 @@ export default class Timeline extends Component {
       super(props);
       this.state = {fotos:[]};
       this.login = this.props.login;
+      this.logicaTimeline = new LogicaTimeline();
     }
 
     componentWillMount(){
@@ -67,17 +69,7 @@ export default class Timeline extends Component {
     }
 
     like(fotoId) {
-      fetch(`http://localhost:8080/api/fotos/${fotoId}/like?X-AUTH-TOKEN=${localStorage.getItem('auth-token')}`,{method:'POST'})
-        .then(response => {
-          if(response.ok) {
-            return response.json();
-          } else {            
-            throw new Error("não foi possível realizar o like da foto");
-          }
-        })
-        .then(liker => {          
-          Pubsub.publish('atualiza-liker',{fotoId,liker});
-        });      
+      this.logicaTimeline.like(fotoId);
     }
 
     comenta(fotoId,textoComentario) {
