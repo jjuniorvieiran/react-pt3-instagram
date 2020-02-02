@@ -5,7 +5,7 @@ export default class Header extends Component {
 
     pesquisa(event){
       event.preventDefault();
-      fetch(`http://localhost:8080/api/public/fotos/${this.loginPesquisado.value}`)
+      fetch(`https://instalura-api.herokuapp.com/api/public/fotos/${this.loginPesquisado.value}`)
         .then(response => response.json())
         .then(fotos => {
           Pubsub.publish('timeline',fotos);

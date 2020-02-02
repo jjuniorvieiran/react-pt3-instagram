@@ -2,7 +2,7 @@ import Pubsub from 'pubsub-js';
 
 export default class LogicaTimeline {
     like(fotoId) {
-     fetch(`http://localhost:8080/api/fotos/${fotoId}/like?X-AUTH-TOKEN=${localStorage.getItem('auth-token')}`,{method:'POST'})
+     fetch(`https://instalura-api.herokuapp.com/api/fotos/${fotoId}/like?X-AUTH-TOKEN=${localStorage.getItem('auth-token')}`,{method:'POST'})
         .then(response => {
           if(response.ok) {
             return response.json();
