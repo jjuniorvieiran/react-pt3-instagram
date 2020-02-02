@@ -10,7 +10,7 @@ export default class Timeline extends Component {
       super(props);
       this.state = {fotos:[]};
       this.login = this.props.login;
-      this.logicaTimeline = new LogicaTimeline();
+      this.logicaTimeline = new LogicaTimeline([]);
     }
 
     componentWillMount(){
@@ -54,6 +54,7 @@ export default class Timeline extends Component {
        .then(response => response.json())
        .then(fotos => {         
          this.setState({fotos:fotos});
+         this.logicaTimeline = new LogicaTimeline(fotos);
        });      
     }
 
@@ -102,7 +103,7 @@ export default class Timeline extends Component {
           transitionEnterTimeout={500}
           transitionLeaveTimeout={300}>
             {
-              this.state.fotos.map(foto => <FotoItem key={foto.id} foto={foto} like={this.like} comenta={this.comenta}/>)
+              this.state.fotos.map(foto => <FotoItem key={foto.id} foto={foto} like={this.like.bind(this)} comenta={this.comenta}/>)
             }               
         </ReactCSSTransitionGroup>        
  
