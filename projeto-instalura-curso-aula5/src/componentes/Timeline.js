@@ -10,9 +10,9 @@ export default class Timeline extends Component {
     this.login = this.props.login;
   }
 
-  componentWillMount() {
-    this.props.store.subscribe(fotos => {
-      this.setState({ fotos });
+  componentWillMount(){
+    this.props.store.subscribe(() => {
+      this.setState({fotos:this.props.store.getState()});
     })
   }
 
@@ -24,7 +24,33 @@ export default class Timeline extends Component {
     } else {
       urlPerfil = `https://instalura-api.herokuapp.com/api/public/fotos/${this.login}`;
     }
-    this.props.store.lista(urlPerfil)
+    //this.props.store.lista(urlPerfil)
+    const listaFixa = [
+      {
+      "urlPerfil": "https://s3.amazonaws.com/caelum-online-public/react-native-parte-2/images/adittional-resources/profile-photo-alberto.jpg",
+      "loginUsuario": "alots",
+      "horario": "07/02/2020 12:38",
+      "urlFoto": "https://s3.amazonaws.com/caelum-online-public/react-native-parte-2/images/adittional-resources/photo-1.jpg",
+      "id": 1,
+      "likeada": false,
+      "likers": [],
+      "comentarios": [],
+      "comentario": "Legenda da foto"
+      },
+      {
+      "urlPerfil": "https://s3.amazonaws.com/caelum-online-public/react-native-parte-2/images/adittional-resources/profile-photo-alberto.jpg",
+      "loginUsuario": "alots",
+      "horario": "07/02/2020 12:38",
+      "urlFoto": "https://s3.amazonaws.com/caelum-online-public/react-native-parte-2/images/adittional-resources/photo-2.jpg",
+      "id": 2,
+      "likeada": false,
+      "likers": [],
+      "comentarios": [],
+      "comentario": "Legenda da foto"
+      }
+      ]
+
+    this.props.store.dispatch({type:'LISTAGEM', fotos:listaFixa});
   }
 
   componentDidMount() {
