@@ -1,21 +1,10 @@
 import React, { Component } from 'react';
 import Header from './componentes/Header';
-import Timeline from './componentes/Timeline';
-import TimelineStore from './logicas/TimelineStore'  
+import Timeline from './componentes/Timeline'; 
 import {createStore} from 'redux';
-
-const timelineStore = new TimelineStore([]);
-
-//REDUCER
-function timeline(state=[],action){ //initial state empty EC6
-  if(action.type === 'LISTAGEM'){
-    return action.fotos;
-  }
-  return state;
-} 
+import {timeline} from './reducers/timeline';
 
 const store = createStore(timeline);
-
 
 class App extends Component {
   render() {    
