@@ -1,4 +1,4 @@
-import {listagem,comentario,like} from '../actions/actionCreator';
+import { listagem, comentario, like, notifica } from '../actions/actionCreator';
 
 export default class TimelineApi {
   static lista(urlPerfil) { //instead of execute the list. we pass the function to dispatch
@@ -30,7 +30,7 @@ export default class TimelineApi {
           }
         })
         .then(novoComentario => {
-          dispatch(comentario(fotoId,novoComentario));
+          dispatch(comentario(fotoId, novoComentario));
           return novoComentario;
         });
     }
@@ -47,9 +47,27 @@ export default class TimelineApi {
           }
         })
         .then(liker => {
-          dispatch(like(fotoId,liker));
+          dispatch(like(fotoId, liker));
           return liker;
         })
     }
   }
+
+  static pesquisa(login) {
+    return dispatch => {
+      fetch(`https://instalura-api.herokuapp.com/api/public/fotos/${login}`)
+        .then(response => response.json())
+        .then(fotos => {
+          if (fotos.length === 0) {
+            dispatch(notifica('usuario não encontrado'));
+          } else {
+            dispatch(notifica('usuario encontrado'));
+          }
+
+          dispatch(listagem(fotos));
+          return fotos;
+        });
+    }
+  }
+
 }
