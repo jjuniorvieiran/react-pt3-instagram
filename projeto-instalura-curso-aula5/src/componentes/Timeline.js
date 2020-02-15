@@ -8,7 +8,6 @@ class Timeline extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { fotos: [] };
     this.login = this.props.login;
   }
 
@@ -72,5 +71,9 @@ const mapDispacthToProps = dispatch => {
 }
 
 const TimelineConatiner = connect(mapStateToProps, mapDispacthToProps)(Timeline);
+//connect => if the page status didnt change, nothing happens because connect implemented a shouldComponentUpdate
+//connect => remove the necessity to use subscribe
+//connect => remove the necessity of setState everytime
+
 
 export default TimelineConatiner
